@@ -2,8 +2,17 @@ import { useState } from "react";
 import SearchBar from "./components/SearchBar";
 import UserService from "./API/UserService";
 import User from "./components/User";
+import Header from "./components/Header";
+import ToggleTheme from "./components/UI/button/ToggleTheme";
+
+import iconMoon from "./assets/icon-moon.svg";
+import iconSun from "./assets/icon-sun.svg";
 
 function App() {
+  const [theme, setTheme] = useState({
+    disable: {title: "DARK", icon: iconMoon},
+    enable: {title: "LIGHT", icon: iconSun}
+  });
   const [query, setQuery] = useState("");
   const [user, setUser] =  useState({
     avatar_url: "https://avatars.githubusercontent.com/u/583231?v=4",
@@ -40,6 +49,14 @@ function App() {
     url: "https://api.github.com/users/octocat"
   });
 
+  function changeTheme() {
+    const newEnable = theme.disable;
+    const newDisable = theme.enable;
+    const newTheme = {disable: newDisable, enable: newEnable};
+    document.body.classList.toggle("dark");
+    setTheme(newTheme);
+  }
+
   // useEffect(() => {
   //   fetchUser("octocat");
   // }, []);
@@ -50,6 +67,9 @@ function App() {
   }
   return (
     <div className="w-full md:max-w-[573px] lg:max-w-[730px] mx-auto px-[24px] font-mono font-normal">
+      <Header>
+        <ToggleTheme {...theme.disable} onClick={changeTheme} />
+      </Header>
       <SearchBar query={query} setQuery={setQuery} fetchUser={fetchUser} />
       <User user={user} />
     </div>
