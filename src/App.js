@@ -49,7 +49,7 @@ function App() {
     setUser(user);
   }
   return (
-    <div className="w-full md:max-w-[573px] lg:max-w-[730px] mx-auto px-[24px]">
+    <div className="w-full md:max-w-[573px] lg:max-w-[730px] mx-auto px-[24px] font-mono font-normal">
       <SearchBar query={query} setQuery={setQuery} fetchUser={fetchUser} />
       <User user={user} />
     </div>
