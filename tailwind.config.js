@@ -10,6 +10,7 @@ module.exports = {
       colors: {
         lightGrey: "#697C9A",
         darkMain: "#141D2F",
+        lightMain: "#F6F8FF",
       }
     },
     fontFamily: {
