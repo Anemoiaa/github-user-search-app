@@ -5,13 +5,14 @@ import User from "./components/User";
 import Header from "./components/Header";
 import ToggleTheme from "./components/UI/button/ToggleTheme";
 
-import iconMoon from "./assets/icon-moon.svg";
-import iconSun from "./assets/icon-sun.svg";
+import {ReactComponent as IconMoon} from "./assets/icon-moon.svg";
+import {ReactComponent as IconSun} from "./assets/icon-sun.svg";
+
 
 function App() {
   const [theme, setTheme] = useState({
-    disable: {title: "DARK", icon: iconMoon},
-    enable: {title: "LIGHT", icon: iconSun}
+    disable: {title: "DARK"},
+    enable: {title: "LIGHT"}
   });
   const [query, setQuery] = useState("");
   const [user, setUser] =  useState({
@@ -65,10 +66,16 @@ function App() {
     const user = await UserService.get(username);
     setUser(user);
   }
+  // TODO: bg standart, bg dark
   return (
     <div className="w-full md:max-w-[573px] lg:max-w-[730px] mx-auto px-[24px] font-mono font-normal">
       <Header>
-        <ToggleTheme {...theme.disable} onClick={changeTheme} />
+        <ToggleTheme {...theme.disable} onClick={changeTheme}>
+          {theme.disable.title === "DARK"
+            ? <IconMoon className="inline fill-current" />
+            : <IconSun className="inline fill-current" />
+          }
+        </ToggleTheme>
       </Header>
       <SearchBar query={query} setQuery={setQuery} fetchUser={fetchUser} />
       <User user={user} />

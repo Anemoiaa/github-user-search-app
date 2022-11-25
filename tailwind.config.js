@@ -6,10 +6,15 @@ module.exports = {
     "./public/*.html",
   ],
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        lightGrey: "#697C9A",
+        darkMain: "#141D2F",
+      }
+    },
     fontFamily: {
       "mono": ['Space Mono', 'monospace'],
-    }
+    },
   },
   plugins: [],
 }
