@@ -1,13 +1,9 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import SearchBar from "./components/SearchBar";
 import UserService from "./API/UserService";
 import User from "./components/User";
 import Header from "./components/Header";
 import ToggleTheme from "./components/UI/button/ToggleTheme";
-
-import {ReactComponent as IconMoon} from "./assets/icon-moon.svg";
-import {ReactComponent as IconSun} from "./assets/icon-sun.svg";
-
 
 function App() {
   const [theme, setTheme] = useState({
@@ -15,6 +11,7 @@ function App() {
     enable: {title: "LIGHT"}
   });
   const [query, setQuery] = useState("");
+  const [error, setError] = useState(false);
   const [user, setUser] =  useState({
     avatar_url: "https://avatars.githubusercontent.com/u/583231?v=4",
     bio: null,
@@ -63,21 +60,20 @@ function App() {
   // }, []);
 
   async function fetchUser(username) {
-    const user = await UserService.get(username);
-    setUser(user);
+    const {data, status} = await UserService.get(username);
+    if(status === 200) {
+      setUser(data);
+    } else {
+      setError(true);
+    }
   }
-  // TODO: bg standart, bg dark
+  // NOW DOING: SearchBar style
   return (
     <div className="w-full md:max-w-[573px] lg:max-w-[730px] mx-auto px-[24px] font-mono font-normal">
       <Header>
-        <ToggleTheme {...theme.disable} onClick={changeTheme}>
-          {theme.disable.title === "DARK"
-            ? <IconMoon className="inline fill-current" />
-            : <IconSun className="inline fill-current" />
-          }
-        </ToggleTheme>
+        <ToggleTheme {...theme.disable} onClick={changeTheme} />
       </Header>
-      <SearchBar query={query} setQuery={setQuery} fetchUser={fetchUser} />
+      <SearchBar query={query} setQuery={setQuery} fetchUser={fetchUser} error={error} />
       <User user={user} />
     </div>
   );
