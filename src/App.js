@@ -4,6 +4,7 @@ import UserService from "./API/UserService";
 import User from "./components/User";
 import Header from "./components/Header";
 import ToggleTheme from "./components/UI/button/ToggleTheme";
+import Loader from "./components/UI/loader/Loader";
 
 function App() {
   const [theme, setTheme] = useState({
@@ -12,6 +13,7 @@ function App() {
   });
   const [query, setQuery] = useState("");
   const [error, setError] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const [user, setUser] = useState("");
 
   function changeTheme() {
@@ -27,6 +29,7 @@ function App() {
   }, []);
 
   async function fetchUser(username) {
+    setIsLoading(true);
     const {data, status} = await UserService.get(username);
     if(status === 200) {
       setUser(data);
@@ -34,6 +37,7 @@ function App() {
     } else {
       setError(true);
     }
+    setIsLoading(false);
   }
 
   return (
@@ -42,7 +46,11 @@ function App() {
         <ToggleTheme {...theme.disable} onClick={changeTheme} />
       </Header>
       <SearchBar query={query} setQuery={setQuery} fetchUser={fetchUser} error={error} />
-      <User user={user} />
+      {isLoading
+        ? <Loader />
+        : <User user={user} />
+      }
+      
     </div>
   );
 }

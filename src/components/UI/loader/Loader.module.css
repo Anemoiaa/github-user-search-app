@@ -1,0 +1,17 @@
+.loader {
+    animation: load 2s infinite linear;
+}
+
+@keyframes load {
+    0%{
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.4;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
