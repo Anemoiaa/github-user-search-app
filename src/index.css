@@ -4,7 +4,7 @@
 @tailwind components;
 @tailwind utilities;
 
-* {
+body, div, input, section {
     transition-property: background-color;
     transition-duration: 550ms;
 }
