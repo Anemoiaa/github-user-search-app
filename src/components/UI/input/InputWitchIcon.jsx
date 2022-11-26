@@ -2,7 +2,7 @@ import { ReactComponent as IconSearch } from "../../../assets/icon-search.svg";
 
 function InputWitchIcon(props) {
     return(
-        <div className="flex-auto flex items-center mr-[20px]">
+        <div className="flex-auto flex items-center lg:mr-[20px]">
             <IconSearch  className="w-[20px] h-[20px] md:w-[24.05px] md:h-[24px] mr-[8.95px] md:mr-[23.94px]"/>
             <input 
                 {...props} 
