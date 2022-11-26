@@ -63,11 +63,12 @@ function App() {
     const {data, status} = await UserService.get(username);
     if(status === 200) {
       setUser(data);
+      setError(false);
     } else {
       setError(true);
     }
   }
-  // NOW DOING: SearchBar style
+
   return (
     <div className="w-full md:max-w-[573px] lg:max-w-[730px] mx-auto px-[24px] font-mono font-normal">
       <Header>
